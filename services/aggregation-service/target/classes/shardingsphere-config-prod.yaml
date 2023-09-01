@@ -1,0 +1,138 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3307/12306?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: PHRmUcd6ZpM0506N1wldC9EKsix77VA8HwMHloLJPZtxSkMnRfEKSn8SYpvcaI5
+
+rules:
+  - !SHARDING
+    tables:
+      t_user:
+        actualDataNodes: ds_0.t_user_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: username
+            shardingAlgorithmName: user_hash_mod
+      t_passenger:
+        actualDataNodes: ds_0.t_passenger_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: username
+            shardingAlgorithmName: passenger_table_hash_mod
+      t_order:
+        actualDataNodes: ds_0.t_order_${0..15}
+        tableStrategy:
+          complex:
+            shardingColumns: user_id,order_sn
+            shardingAlgorithmName: order_table_complex_mod
+      t_order_item:
+        actualDataNodes: ds_0.t_order_item_${0..15}
+        tableStrategy:
+          complex:
+            shardingColumns: user_id,order_sn
+            shardingAlgorithmName: order_item_table_complex_mod
+      t_pay:
+        actualDataNodes: ds_0.t_pay_${0..15}
+        tableStrategy:
+          complex:
+            shardingColumns: order_sn,pay_sn
+            shardingAlgorithmName: pay_table_complex_mod
+      t_order_item_passenger:
+        actualDataNodes: ds_0.t_order_item_passenger_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: id_card
+            shardingAlgorithmName: order_passenger_relation_table_mod
+      t_user_mail:
+        actualDataNodes: ds_0.t_user_mail_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: mail
+            shardingAlgorithmName: t_user_mail_table_mod
+      t_user_phone:
+        actualDataNodes: ds_0.t_user_phone_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: phone
+            shardingAlgorithmName: t_user_phone_table_mod
+    shardingAlgorithms:
+      user_hash_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+      passenger_table_hash_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+      order_table_complex_mod:
+        type: CLASS_BASED
+        props:
+          algorithmClassName: org.opengoofy.index12306.biz.orderservice.dao.algorithm.OrderCommonTableComplexAlgorithm
+          sharding-count: 16
+          strategy: complex
+      order_item_table_complex_mod:
+        type: CLASS_BASED
+        props:
+          algorithmClassName: org.opengoofy.index12306.biz.orderservice.dao.algorithm.OrderCommonTableComplexAlgorithm
+          sharding-count: 16
+          strategy: complex
+      pay_table_complex_mod:
+        type: CLASS_BASED
+        props:
+          algorithmClassName: org.opengoofy.index12306.biz.payservice.dao.algorithm.PayTableComplexAlgorithm
+          sharding-count: 16
+          strategy: complex
+      order_passenger_relation_table_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+      t_user_mail_table_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+      t_user_phone_table_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+  - !ENCRYPT
+    tables:
+      t_user:
+        columns:
+          id_card:
+            cipherColumn: id_card
+            encryptorName: common_encryptor
+          phone:
+            cipherColumn: phone
+            encryptorName: common_encryptor
+          mail:
+            cipherColumn: mail
+            encryptorName: common_encryptor
+          address:
+            cipherColumn: address
+            encryptorName: common_encryptor
+      t_passenger:
+        columns:
+          id_card:
+            cipherColumn: id_card
+            encryptorName: common_encryptor
+          phone:
+            cipherColumn: phone
+            encryptorName: common_encryptor
+      t_order_item:
+        columns:
+          id_card:
+            cipherColumn: id_card
+            encryptorName: common_encryptor
+          phone:
+            cipherColumn: phone
+            encryptorName: common_encryptor
+        queryWithCipherColumn: true
+    encryptors:
+      common_encryptor:
+        type: AES
+        props:
+          aes-key-value: d6oadClrrb9A3GWo
+props:
+  sql-show: true

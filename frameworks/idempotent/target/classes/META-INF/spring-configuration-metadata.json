@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "congomall.idempotent.token",
+      "type": "org.opengoofy.index12306.framework.starter.idempotent.config.IdempotentProperties",
+      "sourceType": "org.opengoofy.index12306.framework.starter.idempotent.config.IdempotentProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "congomall.idempotent.token.prefix",
+      "type": "java.lang.String",
+      "description": "Token 幂等 Key 前缀",
+      "sourceType": "org.opengoofy.index12306.framework.starter.idempotent.config.IdempotentProperties"
+    },
+    {
+      "name": "congomall.idempotent.token.timeout",
+      "type": "java.lang.Long",
+      "description": "Token 申请后过期时间 单位默认毫秒 {@link TimeUnit#MILLISECONDS} 随着分布式缓存过期时间单位 {@link RedisDistributedProperties#valueTimeUnit} 而变化",
+      "sourceType": "org.opengoofy.index12306.framework.starter.idempotent.config.IdempotentProperties"
+    }
+  ],
+  "hints": []
+}

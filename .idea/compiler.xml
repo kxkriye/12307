@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="index12306-distributedid-spring-boot-starter" />
+        <module name="index12306-user-service" />
+        <module name="index12306-log-spring-boot-starter" />
+        <module name="index12306-aggregation-service" />
+        <module name="index12306-gateway-service" />
+        <module name="index12306-base-spring-boot-starter" />
+        <module name="index12306-convention-spring-boot-starter" />
+        <module name="index12306-common-spring-boot-starter" />
+        <module name="index12306-pay-service" />
+        <module name="index12306-order-service" />
+        <module name="index12306-idempotent-spirng-boot-starter" />
+        <module name="index12306-designpattern-spring-boot-starter" />
+        <module name="index12306-database-spring-boot-starter" />
+        <module name="index12306-ticket-service" />
+        <module name="index12306-web-spring-boot-starter" />
+        <module name="index12306-user-spring-boot-starter" />
+        <module name="index12306-cache-spring-boot-starter" />
+        <module name="index12306-general-test" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="12306" target="" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="12306" options="" />
+    </option>
+  </component>
+</project>
